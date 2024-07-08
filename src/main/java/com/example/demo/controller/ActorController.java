@@ -21,7 +21,7 @@ public class ActorController {
     @Operation(summary = "Get all actors", description = "Retrieve a list of all actors")
     @GetMapping("/getactors")
     public List<Actor> getAllactors() {
-        return actorRepository.findAll()
+        return actorRepository.findAll();
     }
 
     @Operation(summary = "Add a new actor", description = "Add a new Actor to the database")
