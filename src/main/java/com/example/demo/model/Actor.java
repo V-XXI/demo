@@ -14,40 +14,65 @@ public class Actor {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name= "actor_id") // identifichiamo city_id come chiave primaria
-    Long city_id;
-    @Column(name= "first name")
-    String city;
+    @Column (name= "actor_id") // identifichiamo actor_id come chiave primaria
+    Long actor_id;
+    @Column(name= "first_name")
+    String first_name;
     @Column(name= "last_name")
-    String country_id;
+    String last_name;
     @Column(name= "last_update")
     java.sql.Timestamp last_update;
-   
-    public Long getCity_id() {
-        return city_id;
+    
+
+    
+    public Long getActor_id() {
+        return actor_id;
     }
-    public void setCity_id(Long city_id) {
-        this.city_id = city_id;
+
+
+
+    public void setActor_id(Long actor_id) {
+        this.actor_id = actor_id;
     }
-    public String getCity() {
-        return city;
+
+
+
+    public String getFirst_name() {
+        return first_name;
     }
-    public void setCity(String city) {
-        this.city = city;
+
+
+
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
     }
-    public String getCountry_id() {
-        return country_id;
+
+
+
+    public String getLast_name() {
+        return last_name;
     }
-    public void setCountry_id(String country_id) {
-        this.country_id = country_id;
+
+
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
+
+
+
     public java.sql.Timestamp getLast_update() {
         return last_update;
     }
+
+
+
     public void setLast_update(java.sql.Timestamp last_update) {
         this.last_update = last_update;
     }
-    
+
+
+
     public Actor(){}
     
 }
