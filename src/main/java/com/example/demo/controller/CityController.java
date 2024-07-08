@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -24,6 +25,12 @@ public class CityController {
         return cityRepository.findAll();
     }
 
+    @Operation(summary = "Get cities by country ID (using query)", description = "Retrieve a list of cities by country ID using query")
+    @GetMapping("/country/native/{countryId}")
+    public List<City> getCitiesByCountryIdNative(@PathVariable Long countryId) {
+        return cityRepository.findByCountryIdNative(countryId);
+    }
+
     @Operation(summary = "Add a new city", description = "Add a new city to the database")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "City added successfully"),
@@ -31,7 +38,7 @@ public class CityController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @PostMapping("/postCities")
-    public City addCity(
+    public String addCity(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     description = "City object to be added to the database",
                     required = true,
@@ -40,8 +47,10 @@ public class CityController {
                     )
             )
             @RequestBody City city) {
-        return cityRepository.save(city);
+
+        cityRepository.insertCity(city.getCity(), city.getCountryId(), new Timestamp(System.currentTimeMillis()));
+        return "City added successfully";
     }
 
-    // Other methods of the controller
+    // Altri metodi del controller
 }

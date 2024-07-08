@@ -1,11 +1,12 @@
 package com.example.demo.model;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+@Entity
 public class Country {
     //i need to add the attributes of the country table
     @Id
