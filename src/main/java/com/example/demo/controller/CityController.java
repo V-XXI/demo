@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/cities") //operazioni per le città
+@RequestMapping("/api/") //operazioni per le città
 public class CityController {
 
     @Autowired
     private CityRepository cityRepository;
 
     @Operation(summary = "Get all cities", description = "Retrieve a list of all cities")
-    @GetMapping("/getCities")
+    @GetMapping("cities")
     public List<City> getAllCities() {
         return cityRepository.findAll();
     }
@@ -29,7 +29,7 @@ public class CityController {
             @ApiResponse(responseCode = "400", description = "Invalid request parameters"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @PostMapping("/postCities")
+    @PostMapping("cities")
     public City addCity(@RequestBody City city) {
         return cityRepository.save(city);
     }

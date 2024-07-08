@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/actors") //operazioni per gli attori
+@RequestMapping("api/") //operazioni per gli attori
 
 public class ActorController {
     
@@ -19,7 +19,7 @@ public class ActorController {
     private ActorRepository actorRepository;
 
     @Operation(summary = "Get all actors", description = "Retrieve a list of all actors")
-    @GetMapping("/getactors")
+    @GetMapping("actors")
     public List<Actor> getAllactors() {
         return actorRepository.findAll();
     }
@@ -30,7 +30,7 @@ public class ActorController {
             @ApiResponse(responseCode = "400", description = "Invalid request parameters"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @PostMapping("/postactors")
+    @PostMapping("actors")
     public Actor addActor(@RequestBody Actor actor) {
         return actorRepository.save(actor);
     }
