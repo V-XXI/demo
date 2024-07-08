@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.City;
 import com.example.demo.repository.CityRepository;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,15 @@ public class CityController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @PostMapping("/postCities")
-    public City addCity(@RequestBody City city) {
+    public City addCity(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "City object to be added to the database",
+                    required = true,
+                    content = @io.swagger.v3.oas.annotations.media.Content(
+                            schema = @Schema(implementation = City.class)
+                    )
+            )
+            @RequestBody City city) {
         return cityRepository.save(city);
     }
 
