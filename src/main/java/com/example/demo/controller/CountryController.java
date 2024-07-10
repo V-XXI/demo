@@ -1,14 +1,18 @@
 package com.example.demo.controller;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.demo.exception.CountryNotFoundException;
 import com.example.demo.model.Country;
 import com.example.demo.repository.CountryRepository;
 
@@ -24,13 +28,26 @@ public class CountryController {
     @Operation (summary = "Get all countries", description = "Retrieve a list of all countries")
     @GetMapping("/getCountries")
     public List<Country> getAllCountries() {
-        return countryRepository.findAll();
+        try {
+            return countryRepository.findAll();
+        } catch (DataAccessException e) {
+            throw new RuntimeException("An error occurred while getting all countries" + e.getMessage(), e);
+        }
     }
 
     //add get method to get country by id
     @GetMapping("/country/{countryId}")
     public List<Country> getCountryById(@PathVariable Long countryId) {
-        return countryRepository.findByCountryIdNative(countryId);
+        try {
+        List<Country> countries = countryRepository.findByCountryIdNative(countryId);
+        if (countries.isEmpty()) {
+            throw new CountryNotFoundException("Country with ID " + countryId + " not found");
+        }
+        return countries;
+    } catch (DataAccessException e) {
+        throw new RuntimeException("An error occurred while getting a country by id: " + e.getMessage(), e);
+    }
+
     }
 
     //add post method to insert country
@@ -43,9 +60,18 @@ public class CountryController {
             )
         )
         @RequestBody Country country) {
-        countryRepository.insertCountry(country.getCountry(), new Timestamp(System.currentTimeMillis()));
-        return "Country added successfully";
+            try {
+                // Tentativo di inserimento del paese
+                countryRepository.insertCountry(country.getCountry(), new Timestamp(System.currentTimeMillis()));
+                return "Country added successfully";
+            } catch (IllegalArgumentException e) {
+                throw new RuntimeException("Invalid timestamp format: " + e.getMessage(), e);
+            } catch (DataAccessException e) {
+                throw new RuntimeException("Error adding country: " + e.getMessage(), e);
+            }
        
     }
+
+     
     
 }

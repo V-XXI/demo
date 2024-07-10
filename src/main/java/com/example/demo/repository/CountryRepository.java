@@ -17,12 +17,13 @@ public  interface CountryRepository extends JpaRepository<Country, Long>{
     @Query(value = "SELECT * FROM country", nativeQuery = true)
     List<Country> findAll();
 
-    @Query(value = "SELECT * FROM country WHERE country_id = ?1", nativeQuery = true)
+
+    @Query(value = "SELECT * FROM countrysada WHERE country_id = ?1", nativeQuery = true)
     List<Country> findByCountryIdNative(Long countryId);
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO country (country, last_update) VALUES (:country, :lastUpdate)", nativeQuery = true)
+    @Query(value = "INSERT INTO countrysada (country, last_update) VALUES (:country, :lastUpdate)", nativeQuery = true)
     void insertCountry(@Param("country") String country, @Param("lastUpdate") java.sql.Timestamp lastUpdate);
     
     
