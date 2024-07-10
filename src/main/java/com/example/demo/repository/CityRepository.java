@@ -50,8 +50,8 @@ public interface CityRepository extends JpaRepository<City, Long>{
     List<City> findAll();
 
     //add query sql to find city by id
-    @Query(value = "SELECT * FROM city WHERE countryId = ?1", nativeQuery = true)
-    List<City> findByCountryIdNative(Long countryId);
+    @Query(value = "SELECT * FROM city WHERE city = ?1", nativeQuery = true)
+    List<City> findByCityIdNative(Long cityId);
 
     //add query sql to insert city
     @Modifying
