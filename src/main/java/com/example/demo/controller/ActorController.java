@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import com.example.demo.exception.NotFoundException;
+import com.example.demo.model.Actor;
 import com.example.demo.model.Actor;
 import com.example.demo.repository.ActorRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,6 +39,23 @@ public class ActorController {
             @ApiResponse(responseCode = "400", description = "Invalid request parameters"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
+
+    //add get method to get country by id
+    @GetMapping("/{actor_id}")
+    public List<Actor> getCountryById(@PathVariable Long actor_id) {
+        try {
+        List<Actor> actors = actorRepository.findByActorIdNative(actor_id);
+        System.out.println(actors);
+        if (actors.isEmpty()) {
+            throw new NotFoundException("Actor with ID " + actor_id + " not found");
+        }
+        return actors;
+    } catch (DataAccessException e) {
+        throw new RuntimeException("An error occurred while getting a country by id: " + e.getMessage(), e);
+    }
+
+    }
+
     @PostMapping("/postActors")
     public String addActor(
                     @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Actor object to be added to the database", required = true, content = @io.swagger.v3.oas.annotations.media.Content(schema = @Schema(implementation = Actor.class))) @RequestBody Actor actor) {

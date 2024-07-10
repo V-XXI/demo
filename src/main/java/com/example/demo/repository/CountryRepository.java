@@ -16,7 +16,7 @@ public  interface CountryRepository extends JpaRepository<Country, Long>{
 List<Country> findAll();
 
 //add query sql to f ind city by id
-@Query(value = "SELECT * FROM country WHERE country = ?1", nativeQuery = true) 
+@Query(value = "SELECT * FROM country WHERE country_id = ?1", nativeQuery = true) 
 List<Country> findByCountryIdNative(Long countryId); //copiare in 
 
 //add query sql to insert city

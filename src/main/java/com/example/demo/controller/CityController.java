@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.City;
-import com.example.demo.model.Country;
 import com.example.demo.repository.CityRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;

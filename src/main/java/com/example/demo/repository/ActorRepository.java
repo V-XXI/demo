@@ -18,8 +18,8 @@ public interface ActorRepository extends JpaRepository<Actor, Long>{ //le propri
 List<Actor> findAll();
 
 //add query sql to f ind city by id
-@Query(value = "SELECT * FROM actor WHERE actor = ?1", nativeQuery = true) 
-List<Actor> findByActorIdNative(Long actorId); //copiare in 
+@Query(value = "SELECT * FROM actor WHERE actor_id = ?1", nativeQuery = true) 
+List<Actor> findByActorIdNative(Long actor_id); //copiare in 
 
 //add query sql to insert city
 @Modifying
